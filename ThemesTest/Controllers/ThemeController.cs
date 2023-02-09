@@ -7,7 +7,7 @@ namespace ThemesTest.Controllers;
 [ApiController]
 public class ThemeController : ControllerBase
 {
-    [HttpGet]
+    [HttpGet("change")]
     public async Task<ActionResult> ChangeTheme([FromQuery] string theme)
     {
         Response.Cookies.Append("theme", theme);

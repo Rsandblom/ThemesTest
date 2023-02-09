@@ -1,0 +1,14 @@
+﻿@page "/"
+@namespace ThemesTest.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+    var state = new InitialApplicationState();
+
+    state.ThemeType = "unifleet";
+
+    state.ThemeType = HttpContext.Request.Cookies["theme"];
+}
+
+<component type="typeof(App)" param-InitialState="state" render-mode="ServerPrerendered" />
+

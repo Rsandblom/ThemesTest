@@ -5,8 +5,8 @@
     Layout = "_Layout";
     var state = new InitialApplicationState();
 
-    state.ThemeType = "unifleet";
-
+    //state.ThemeType = "unifleet";
+    //state.ThemeType = HttpContext.User.Identity.SomethingWithClaims
     state.ThemeType = HttpContext.Request.Cookies["theme"];
 }
 

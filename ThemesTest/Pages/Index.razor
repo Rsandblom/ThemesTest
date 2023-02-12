@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/index"
 @inject NavigationManager navigationManager
 
 <PageTitle>Index</PageTitle>
@@ -15,11 +16,28 @@
 
 </div>
 
+<hr />
+
+<div>
+    <h2>Parameters from query string</h2>
+    <h4>Return page: @ReturnPage</h4>
+    <h4>Count: @Count</h4>
+    <button class="btn btn-primary" @onclick="NavigateBackToFormerPageWithCounterQueryString">Go back</button>
+</div>
+
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 @code{
+    [Parameter, SupplyParameterFromQuery]
+    public int Count { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public string? ReturnPage { get; set; }
+
+    private const string ReturnPageQueryParameter = "returnPage";
+    private const string CountQueryParameter = "count";
     private string _theme;
 
     public string Theme
@@ -30,6 +48,18 @@ Welcome to your new app.
             _theme = value;
             navigationManager.NavigateTo($"/theme/change/?theme={_theme}", true);
         }
+    }
+
+    private void NavigateBackToFormerPageWithCounterQueryString()
+    {
+        var uriWithQuerystring = navigationManager.GetUriWithQueryParameters(ReturnPage ??= nameof(Index),
+            new Dictionary<string, object?>()
+            {
+                { ReturnPageQueryParameter, ReturnPage ??= nameof(Index) },
+                { CountQueryParameter, Count }
+            });
+
+        navigationManager.NavigateTo(uriWithQuerystring);
     }
     
 }

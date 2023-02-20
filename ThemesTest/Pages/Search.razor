@@ -1,0 +1,43 @@
+﻿@page "/search"
+
+<h2>Search</h2>
+
+<p>Private _searchValueTest: @_searchValueTest</p>
+
+<h3>Search forms container</h3>
+<div class="searchFormsContainer">
+    <form @onsubmit=SearchForm>
+        <div class="searchForm">
+            <div class="searchButton" @onclick="async () => await SearchForm()">
+                <img src="/images/magnifying-glass-svgrepo-com.svg" />
+            </div>
+            <input type="search"  class="searchInputField" placeholder="second search form" @bind="SearchValue" />
+            @*<div class="searchInput3">
+                <input class="searchInputField3" placeholder="second search form" @bind="SearchValue2" />
+            </div>*@
+        </div>
+    </form>
+    <h4>SearchValue1:</h4>
+    <p>@_searchValue</p>
+
+</div>
+
+
+
+@code {
+    public string? SearchValue { get; set; }
+
+    private string? _searchValueTest;
+    private string? _searchValue;
+
+    protected override Task OnInitializedAsync()
+    {
+        _searchValueTest = SearchValue; 
+        return base.OnInitializedAsync();
+    }
+
+    private async Task SearchForm()
+    {
+        _searchValue = $"Search time: {DateTime.Now}, Search term: {SearchValue}";
+    }
+}

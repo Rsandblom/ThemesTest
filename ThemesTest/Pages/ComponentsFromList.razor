@@ -1,0 +1,28 @@
+﻿@page "/componentsfromlist"
+
+@using ThemesTest.Components
+
+<h3>Components from list</h3>
+
+
+@foreach (var item in innerComponentsList)
+{
+    <ParentComponent>
+        <InnerComponent>
+            @item
+        </InnerComponent>
+    </ParentComponent>
+}
+
+
+@code {
+    List<RenderFragment>? innerComponentsList;
+
+    protected override void OnInitialized()
+    {
+        innerComponentsList = new List<RenderFragment>();
+        innerComponentsList.Add( @<InnerComponent1 />);
+        innerComponentsList.Add( @<InnerComponent2 />);
+        innerComponentsList.Add( @<InnerComponent1 />);
+    }
+}

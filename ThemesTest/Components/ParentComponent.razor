@@ -1,0 +1,15 @@
+﻿
+
+<h3>ParentComponent</h3>
+
+@InnerComponent
+
+@CompBaseInnerComponent
+
+@code {
+    [Parameter]
+    public RenderFragment? InnerComponent { get; set; }
+
+    [Parameter]
+    public ComponentBase? CompBaseInnerComponent { get; set; }
+}

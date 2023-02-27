@@ -1,0 +1,21 @@
+﻿@page "/toastvernissage"
+
+<h3>ToastVernissage</h3>
+
+<button class="btn btn-primary" @onclick="ShowToast">Click me</button>
+
+<div class="testToast @_showToast">
+    <p>Sparat!</p>
+</div>
+
+@code {
+    private bool _showToast = default;
+
+    private async Task ShowToast()
+    {
+        _showToast = true;
+        await Task.Delay(3000);
+        _showToast = false;
+
+    }
+}

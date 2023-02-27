@@ -1,0 +1,42 @@
+﻿
+
+@page "/dynamiccomponentsfromlist"
+
+@using ThemesTest.Components
+
+<h3>Components from list</h3>
+
+
+@foreach (var item in innerComponentsList)
+{
+    <ParentComponent>
+        <InnerComponent>
+            @{
+                var componentType = ResolveComponent(@item);
+                if (componentType != null)
+                {
+                    <DynamicComponent Type="componentType" />
+                }
+            }
+        </InnerComponent>
+    </ParentComponent>
+}
+
+
+@code {
+    List<string>? innerComponentsList;
+
+    protected override void OnInitialized()
+    {
+        innerComponentsList = new List<string>();
+        innerComponentsList.Add(nameof(InnerComponent1));
+        innerComponentsList.Add(nameof(InnerComponent2));
+        innerComponentsList.Add(nameof(InnerComponent1));
+    }
+
+    private Type? ResolveComponent(string componentName)
+    {
+        return string.IsNullOrEmpty(componentName) ? null
+            : Type.GetType($"{nameof(ThemesTest)}.Components.{componentName}");
+    }
+}
